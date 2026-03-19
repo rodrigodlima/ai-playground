@@ -1,0 +1,54 @@
+Terraform used the selected providers to generate the following execution plan.
+Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+  - destroy
+-/+ destroy and then create replacement
+
+Terraform will perform the following actions:
+
+  # azurerm_resource_group.main will be created
+  + resource "azurerm_resource_group" "main" {
+      + id       = (known after apply)
+      + location = "eastus2"
+      + name     = "rg-bounding-prod"
+      + tags     = {
+          + "environment" = "production"
+          + "managed_by"  = "terraform"
+        }
+    }
+
+  # azurerm_virtual_network.main will be created
+  + resource "azurerm_virtual_network" "main" {
+      + address_space = ["10.0.0.0/16"]
+      + id            = (known after apply)
+      + location      = "eastus2"
+      + name          = "vnet-bounding-prod"
+      + resource_group_name = "rg-bounding-prod"
+    }
+
+  # azurerm_subnet.app will be updated in-place
+  ~ resource "azurerm_subnet" "app" {
+      ~ address_prefixes = ["10.0.1.0/24"] -> ["10.0.2.0/24"]
+        id               = "/subscriptions/xxx/resourceGroups/rg-bounding-prod/providers/Microsoft.Network/virtualNetworks/vnet-bounding-prod/subnets/snet-app"
+        name             = "snet-app"
+    }
+
+  # azurerm_key_vault_secret.db_password must be replaced
+-/+ resource "azurerm_key_vault_secret" "db_password" {
+      ~ id           = "/subscriptions/xxx/providers/Microsoft.KeyVault/vaults/kv-bounding/secrets/db-password" -> (known after apply)
+      ~ name         = "db-password" -> "db-password-v2" # forces replacement
+        key_vault_id = "/subscriptions/xxx/providers/Microsoft.KeyVault/vaults/kv-bounding"
+    }
+
+  # azurerm_postgresql_flexible_server.main will be destroyed
+  - resource "azurerm_postgresql_flexible_server" "main" {
+      - administrator_login    = "pgadmin" -> null
+      - id                     = "/subscriptions/xxx/providers/Microsoft.DBforPostgreSQL/flexibleServers/psql-bounding-prod" -> null
+      - name                   = "psql-bounding-prod" -> null
+      - sku_name               = "GP_Standard_D4s_v3" -> null
+      - storage_mb             = 131072 -> null
+      - version                = "15" -> null
+    }
+
+Plan: 2 to add, 1 to change, 1 to destroy, 1 to replace.
