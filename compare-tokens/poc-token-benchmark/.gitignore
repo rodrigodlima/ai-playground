@@ -1,0 +1,14 @@
+# Generated variants (created by generate_variants.py)
+variants/
+
+# Results (machine-specific, not committed)
+results/*.json
+results/*.csv
+
+# Keep the placeholder files
+!results/.gitkeep
+!test_project/.gitkeep
+
+# Python
+__pycache__/
+*.pyc
