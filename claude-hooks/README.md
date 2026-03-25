@@ -14,10 +14,10 @@ You need to create a ```settings.json``` file at ```~/.claude/settings.json```
 
 Hooks fire on specific lifecycle events:
 
-* <font color="red">SessionStart</font>: When a new Claude Code session begins
-* <font color="red">UserPromptSubmit</font>: Right after you hit enter on a prompt
-* <font color="red">Stop</font>: When Claude finishes its response
-* <font color="red">PreCompact</font>: Before context compaction happens (when the conversation gets too long)
+* **SessionStart**: When a new Claude Code session begins
+* **UserPromptSubmit**: Right after you hit enter on a prompt
+* **Stop**: When Claude finishes its response
+* **PreCompact**: Before context compaction happens (when the conversation gets too long)
 
 ## My setup
 
